@@ -27,25 +27,23 @@ public class Manager : MonoBehaviour
     }
     void CreateShape(string _shape, Vector3 _pos, Vector3 _col, Vector3 _rot, Vector3 _dim)
     {
-        print("Created!");
         GameObject shape = new GameObject("Shape");
         shape.AddComponent<RaymarchRenderer>();
 
         RaymarchRenderer rr = shape.GetComponent<RaymarchRenderer>();
 
-        foreach (string shapeName in Enum.GetNames(typeof(Shape)))
-        {
-            //if (shapeName)
-        }
+        rr.shape = (RaymarchRenderer.Shape)Enum.Parse(typeof(RaymarchRenderer.Shape), _shape);
+        rr.color = new Color(_col.x, _col.y, _col.z);
 
         shape.transform.position = _pos;
         shape.transform.eulerAngles = _rot * Mathf.Rad2Deg;
-        
+        //rr.shape.dim
     }
+   
     private void Start()
     {
-        InvokeRepeating("RandomizeShape", .05f, .05f);
-        //InvokeRepeating("CreateShape", .5f, 5f);
+        //InvokeRepeating("RandomizeShape", .05f, .05f);
+        CreateShape("Frustrum", Vector3.one, new Vector3(Color.red.r, Color.red.b, Color.red.g), Vector3.one, new Vector3(.5f, .5f, .5f));
     }
     public struct Shape
     {
