@@ -37,13 +37,25 @@ public class Manager : MonoBehaviour
 
         shape.transform.position = _pos;
         shape.transform.eulerAngles = _rot * Mathf.Rad2Deg;
-        //rr.shape.dim
+
+        switch ((int)rr.shape)
+        {
+            case 0:
+                rr.cyl.r = _dim.x;
+                rr.cyl.h = _dim.y;
+                break;
+            case 1:
+                rr.cap.r1 = _dim.x;
+                rr.cap.r2 = _dim.y;
+                rr.cap.h=  _dim.z;
+                break;
+        }
     }
    
     private void Start()
     {
         //InvokeRepeating("RandomizeShape", .05f, .05f);
-        CreateShape("Frustrum", Vector3.one, new Vector3(Color.red.r, Color.red.b, Color.red.g), Vector3.one, new Vector3(.5f, .5f, .5f));
+        CreateShape("Frustrum", Vector3.one, new Vector3(255, 255, 0), Vector3.one, new Vector3(.5f, 1.5f, .5f));
     }
     public struct Shape
     {

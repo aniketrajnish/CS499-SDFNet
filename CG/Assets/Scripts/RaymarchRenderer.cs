@@ -16,22 +16,17 @@ public class RaymarchRenderer : MonoBehaviour
 
     [Range(.1f, 100)]
     public float blendFactor;
-    private void Start()
-    {
-        
-    }
+   
     public Vector3 GetDimensionVectors(int i)
     {
         int len = Enum.GetNames(typeof(RaymarchRenderer.Shape)).Length;
 
         Vector3[] dimensions = new Vector3[len];
 
-        //cylinder
-        
+        //cylinder        
         dimensions[0] = new Vector3(cyl.r, cyl.h, 0);
 
-        //capped cone
-        
+        //capped cone        
         dimensions[1] = new Vector3(cap.r1, cap.r2, cap.h);
 
         return dimensions[i];
