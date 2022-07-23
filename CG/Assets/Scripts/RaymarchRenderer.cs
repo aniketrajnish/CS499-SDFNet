@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+[ExecuteInEditMode]
 public class RaymarchRenderer : MonoBehaviour
 {    
     public enum Shape
@@ -15,6 +16,10 @@ public class RaymarchRenderer : MonoBehaviour
 
     [Range(.1f, 100)]
     public float blendFactor;
+    private void Start()
+    {
+        
+    }
     public Vector3 GetDimensionVectors(int i)
     {
         int len = Enum.GetNames(typeof(RaymarchRenderer.Shape)).Length;
