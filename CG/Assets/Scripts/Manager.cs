@@ -6,6 +6,35 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Manager : MonoBehaviour
 {
+    int count = 5;
+    string[] shapes;
+    Vector3[] positions, colors, rotations, dimensions;
+    private void OnEnable()
+    {
+        //InvokeRepeating("RandomizeShape", .05f, .05f);
+        shapes = new string[] { "Cylinder", "Frustrum", "Cylinder", "Frustrum", "Cylinder"};
+        positions = new Vector3[count];
+        colors = new Vector3[count];
+        rotations = new Vector3[count];
+        dimensions = new Vector3[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector3 rand = new Vector3(UnityEngine.Random.Range(-1f, 1f),
+                UnityEngine.Random.Range(-1f, 1f),
+                UnityEngine.Random.Range(-1f, 1f));
+            Vector3 rand_abs = new Vector3(Mathf.Abs(rand.x), Mathf.Abs(rand.y), Mathf.Abs(rand.z));
+
+            shapes[i] = shapes[UnityEngine.Random.Range(0, shapes.Length)];
+            positions[i] = 2f * rand;
+            colors[i] = rand_abs;
+            rotations[i] = 2f * rand;
+            dimensions[i] = 2f * rand_abs;
+
+            CreateShape(shapes[i], positions[i], colors[i], rotations[i], dimensions[i]);
+        }
+
+    }
     void RandomizeShape()
     {
         List<RaymarchRenderer> renderers = new List<RaymarchRenderer>(FindObjectsOfType<RaymarchRenderer>());
@@ -47,23 +76,8 @@ public class Manager : MonoBehaviour
             case 1:
                 rr.cap.r1 = _dim.x;
                 rr.cap.r2 = _dim.y;
-                rr.cap.h=  _dim.z;
+                rr.cap.h =  _dim.z;
                 break;
         }
-    }
-   
-    private void Start()
-    {
-        //InvokeRepeating("RandomizeShape", .05f, .05f);
-        CreateShape("Frustrum", Vector3.one, new Vector3(255, 255, 0), Vector3.one, new Vector3(.5f, 1.5f, .5f));
-    }
-    public struct Shape
-    {
-        public Vector3 pos;
-        public Vector3 rot;
-        public Vector3 col;
-        public float blendFactor;
-        public int shapeIndex;
-        public Vector3 dimensions;
-    }
+    }       
 }

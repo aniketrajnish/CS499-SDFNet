@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 [ExecuteInEditMode]
 public class RaymarchRenderer : MonoBehaviour
-{    
+{ 
     public enum Shape
     {
         Cylinder,
@@ -43,7 +43,3 @@ public class RaymarchRenderer : MonoBehaviour
         public float r2;
     };
 }
-
-
-
-
