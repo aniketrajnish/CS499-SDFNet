@@ -23,7 +23,10 @@ public class Manager : MonoBehaviour
             Vector3 rand = new Vector3(UnityEngine.Random.Range(-1f, 1f),
                 UnityEngine.Random.Range(-1f, 1f),
                 UnityEngine.Random.Range(-1f, 1f));
-            Vector3 rand_abs = new Vector3(Mathf.Abs(rand.x), Mathf.Abs(rand.y), Mathf.Abs(rand.z));
+
+            Vector3 rand_abs = new Vector3(Mathf.Abs(rand.x),
+                Mathf.Abs(rand.y),
+                Mathf.Abs(rand.z));
 
             shapes[i] = shapes[UnityEngine.Random.Range(0, shapes.Length)];
             positions[i] = 2f * rand;
@@ -34,6 +37,17 @@ public class Manager : MonoBehaviour
             CreateShape(shapes[i], positions[i], colors[i], rotations[i], dimensions[i]);
         }
 
+    }
+
+
+    private void OnDisable()
+    {
+        List<RaymarchRenderer> renderers = new List<RaymarchRenderer>(FindObjectsOfType<RaymarchRenderer>());
+
+        foreach (RaymarchRenderer rr in renderers)
+            DestroyImmediate(rr.gameObject);
+        /*foreach (RaymarchRenderer rr in renderers)        
+            Destroy(rr.gameObject);*/        
     }
     void RandomizeShape()
     {
