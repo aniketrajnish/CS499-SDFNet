@@ -361,3 +361,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 865aa90fc25ae824ca82229fac2f59bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputCSV: {fileID: 4900000, guid: 0301fd1396570c7488be3bce5b976929, type: 3}

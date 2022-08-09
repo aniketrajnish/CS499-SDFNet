@@ -9,8 +9,12 @@ public class Manager : MonoBehaviour
     int count = 5;
     string[] shapes;
     Vector3[] positions, colors, rotations, dimensions;
+    public TextAsset inputCSV;
+    private char space = ',';
+    private char lineBreak = '\n';
     private void OnEnable()
     {
+        DrawShape(2);
         //InvokeRepeating("RandomizeShape", .05f, .05f);
         shapes = new string[] { "Cylinder", "Frustrum", "Cylinder", "Frustrum", "Cylinder"};
         positions = new Vector3[count];
@@ -18,7 +22,7 @@ public class Manager : MonoBehaviour
         rotations = new Vector3[count];
         dimensions = new Vector3[count];
 
-        for (int i = 0; i < count; i++)
+        /*for (int i = 0; i < count; i++)
         {
             Vector3 rand = new Vector3(UnityEngine.Random.Range(-1f, 1f),
                 UnityEngine.Random.Range(-1f, 1f),
@@ -35,11 +39,60 @@ public class Manager : MonoBehaviour
             dimensions[i] = 2f * rand_abs;
 
             CreateShape(shapes[i], positions[i], colors[i], rotations[i], dimensions[i]);
+        }*/
+    }
+    string[] readInput(int index)
+    {
+        string[] datasets = inputCSV.text.Split(lineBreak);
+
+        for (int i = 0; i < datasets.Length; i++)
+        {
+            string[] data = datasets[i].Split(space);
+
+            if (i == index)            
+                return data;            
+        }
+        return null;
+    }
+    private void DrawShape(int index)
+    {
+        string[] shapeData = readInput(index);
+        //print(shapeData[shapeData.Length-1]);
+        List<string> shapes  = new List<string>();
+        List<Vector3> colors = new List<Vector3>();
+        List<Vector3> dimensions = new List<Vector3>();
+        List<Vector3> rotations = new List<Vector3>();
+        List<Vector3> positions = new List<Vector3>();
+      
+        string[] first_row = readInput(0);
+
+        for (int j = 0; j < first_row.Length; j++)
+        {
+            string inp = first_row[j];
+
+            if (inp == "r1" || inp == "r2" || inp == "r3")
+                colors.Add(new Vector3(float.Parse(shapeData[j]),
+                    float.Parse(shapeData[j + 1]),
+                    float.Parse(shapeData[j + 2])));            
+
+            if (inp == "Shape")                            
+                shapes.Add(char.ToUpper(shapeData[j][0]) + shapeData[j].Substring(1));
+
+            if (inp == "rBC" || inp == "rTC" || inp == "r1F")
+            {
+                dimensions.Add(new Vector3(float.Parse(shapeData[j]),
+                    float.Parse(shapeData[j + 1]),
+                    float.Parse(shapeData[j + 2])));
+            }
         }
 
+        for (int i = 0; i < 3; i++)
+        {
+            rotations.Add(Vector3.zero);
+            positions.Add(Vector3.zero);
+            CreateShape(shapes[i], positions[i], colors[i], rotations[i], dimensions[i]);
+        }        
     }
-
-
     private void OnDisable()
     {
         List<RaymarchRenderer> renderers = new List<RaymarchRenderer>(FindObjectsOfType<RaymarchRenderer>());
@@ -65,8 +118,7 @@ public class Manager : MonoBehaviour
         renderers[0].cap.r2 = rand_radius * .5f;
 
         renderers[2].cyl.r = rand_radius;
-        renderers[2].cyl.h = rand_height;
-        
+        renderers[2].cyl.h = rand_height;        
     }
     void CreateShape(string _shape, Vector3 _pos, Vector3 _col, Vector3 _rot, Vector3 _dim)
     {
