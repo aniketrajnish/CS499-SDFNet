@@ -14,7 +14,8 @@ public class Manager : MonoBehaviour
     private char lineBreak = '\n';
     private void OnEnable()
     {
-        DrawShape(2);
+        InvokeRepeating("DrawRandomizedShapes", .5f, .5f);
+        //DrawShape(UnityEngine.Random.Range(1,40));
         //InvokeRepeating("RandomizeShape", .05f, .05f);
         shapes = new string[] { "Cylinder", "Frustrum", "Cylinder", "Frustrum", "Cylinder"};
         positions = new Vector3[count];
@@ -54,6 +55,15 @@ public class Manager : MonoBehaviour
         }
         return null;
     }
+    void DrawRandomizedShapes()
+    {
+        RaymarchRenderer[] rrs = FindObjectsOfType<RaymarchRenderer>();
+
+        foreach (RaymarchRenderer rr in rrs)
+            DestroyImmediate(rr.gameObject);
+
+        DrawShape(UnityEngine.Random.Range(1, 40));
+    }
     private void DrawShape(int index)
     {
         string[] shapeData = readInput(index);
@@ -89,7 +99,14 @@ public class Manager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             rotations.Add(Vector3.zero);
-            positions.Add(Vector3.zero);
+            //positions.Add(Vector3.zero);
+            if (i == 0)
+                positions.Add(Vector3.zero);
+            else if (i == 1)
+                positions.Add(new Vector3(0, dimensions[0].y/2 + dimensions[1].z/2, 0) * 2);
+            else if (i == 2)
+                positions.Add(new Vector3(0, dimensions[0].y / 2 + dimensions[1].z / 2 + dimensions[2].y/2, 0) * 2.75f);
+
             CreateShape(shapes[i], positions[i], colors[i], rotations[i], dimensions[i]);
         }        
     }
