@@ -14,7 +14,7 @@ public class Manager : MonoBehaviour
     private char lineBreak = '\n';
     private void OnEnable()
     {
-        InvokeRepeating("DrawRandomizedShapes", .5f, .5f);
+        InvokeRepeating("DrawRandomizedShapes", .5f, .1f);
         //DrawShape(UnityEngine.Random.Range(1,40));
         //InvokeRepeating("RandomizeShape", .05f, .05f);
         shapes = new string[] { "Cylinder", "Frustrum", "Cylinder", "Frustrum", "Cylinder"};
