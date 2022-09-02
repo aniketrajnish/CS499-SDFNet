@@ -14,8 +14,8 @@ We're deeply referencing the code accompanying the paper: [CSGNet: Neural Shape 
 
 
 
-More documentation incoming!
-
+Follow this [blog](https://aniketrajnish.github.io/docs/sdfnet) for updates!
+ 
 -----------------------------------
 
 
