@@ -202,7 +202,19 @@ Shader "Makra/ImageEffectRaymarcher"
                     Shape _shape = shapes[i];
 
                     float deltaDist = GetDist(_shape, p);
-                    sigmaDist = sdUnion(sigmaDist, deltaDist);
+
+                    switch (_shape.opIndex)
+                    {
+                        case 0:
+                            sigmaDist = sdUnion(sigmaDist, deltaDist);
+                            break;
+                        case 1:
+                            sigmaDist = sdIntersection(sigmaDist, deltaDist);
+                            break;
+                        case 2:
+                            sigmaDist = sdSubtraction(sigmaDist, deltaDist);
+                            break;
+                    }                        
                 }
                 return sigmaDist;
             }
@@ -218,7 +230,19 @@ Shader "Makra/ImageEffectRaymarcher"
                     float3 deltaCol = _shape.col;
                     float h = clamp(0.5 + 25 * (sigmaDist - deltaDist) / _shape.blendFactor, 0.0, 1.0);
                     sigmaCol = lerp(sigmaCol, deltaCol, h);
-                    sigmaDist = sdUnion(deltaDist, sigmaDist);
+
+                    switch (_shape.opIndex)
+                    {
+                    case 0:
+                        sigmaDist = sdUnion(sigmaDist, deltaDist);
+                        break;
+                    case 1:
+                        sigmaDist = sdIntersection(sigmaDist, deltaDist);
+                        break;
+                    case 2:
+                        sigmaDist = sdSubtraction(sigmaDist, deltaDist);
+                        break;
+                    }
                 }
                 return sigmaCol;
             }

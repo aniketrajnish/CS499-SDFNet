@@ -40,10 +40,9 @@ public class RaymarchRenderer : MonoBehaviour
     };     
     public enum Operation
     {
-        Union,
-        Blend,
-        Subtract,
-        Inrersect
+        Union,        
+        Inrersect,
+        Subtract
     };
 
     public Shape shape;
