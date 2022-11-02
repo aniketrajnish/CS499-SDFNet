@@ -153,8 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shape: 3
-  operation: 2
-  color: {r: 1, g: 0, b: 0, a: 0}
+  operation: 0
+  color: {r: 0.02922988, g: 1, b: 0, a: 0}
   blendFactor: 0
 --- !u!4 &155590946
 Transform:
