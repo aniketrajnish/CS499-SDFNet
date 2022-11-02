@@ -14,7 +14,7 @@ public class Manager : MonoBehaviour
     private char lineBreak = '\n';
     private void OnEnable()
     {
-        InvokeRepeating("DrawRandomizedShapes", .5f, .1f);
+        //InvokeRepeating("DrawRandomizedShapes", .5f, .1f);
         //DrawShape(UnityEngine.Random.Range(1,40));
         //InvokeRepeating("RandomizeShape", .05f, .05f);
         shapes = new string[] { "Cylinder", "Frustrum", "Cylinder", "Frustrum", "Cylinder"};
@@ -41,6 +41,10 @@ public class Manager : MonoBehaviour
 
             CreateShape(shapes[i], positions[i], colors[i], rotations[i], dimensions[i]);
         }*/
+    }
+    private void Update()
+    {
+        DrawRandomizedShapes();
     }
     string[] readInput(int index)
     {
@@ -116,8 +120,6 @@ public class Manager : MonoBehaviour
 
         foreach (RaymarchRenderer rr in renderers)
             DestroyImmediate(rr.gameObject);
-        /*foreach (RaymarchRenderer rr in renderers)        
-            Destroy(rr.gameObject);*/        
     }
     void RandomizeShape()
     {

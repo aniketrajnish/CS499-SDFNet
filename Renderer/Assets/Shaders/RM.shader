@@ -21,7 +21,22 @@ Shader "Makra/ImageEffectRaymarcher"
 
             #define max_steps 225
             #define max_dist 1000
-            #define surf_dist 1e-2           
+            #define surf_dist 1e-2    
+
+               struct vector12 {
+                float a;
+                float b;
+                float c;
+                float d;
+                float e;
+                float f;
+                float g;
+                float h;
+                float i;
+                float j;
+                float k;
+                float l;
+            };
 
             struct Shape
             {
@@ -30,7 +45,7 @@ Shader "Makra/ImageEffectRaymarcher"
                 float3 col;
                 float blendFactor;
                 int shapeIndex;
-                float3 dimensions;
+                vector12 dimensions;
             };
 
             StructuredBuffer<Shape> shapes;
@@ -78,12 +93,102 @@ Shader "Makra/ImageEffectRaymarcher"
 
                 switch (shape.shapeIndex) {
                 case 0:
-                    d = sdCylinder(p, shape.dimensions.x, shape.dimensions.y);
+                    d = sdCylinder(p, shape.dimensions.a, shape.dimensions.b);
                     break;
                 case 1:
-                    d = sdFrustrum(p, shape.dimensions.x, shape.dimensions.y, shape.dimensions.z);
+                    d = sdFrustrum(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;                    
+                case 2:
+                    d = sdSphere(p, shape.dimensions.a);
                     break;
-                    return d;
+                case 3:
+                    d = sdTorus(p, float2(shape.dimensions.a, shape.dimensions.b));
+                    break;
+                case 4:
+                    d = sdCappedTorus(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 5:
+                    d = sdLink(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 6:
+                    d = sdCone(p, shape.dimensions.a, float2(shape.dimensions.b, shape.dimensions.c));
+                    break;
+                case 7:
+                    d = sdInfCone(p, float2(shape.dimensions.a, shape.dimensions.b));
+                    break;
+                case 8:
+                    d = sdPlane(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c), shape.dimensions.d);
+                    break;
+                case 9:
+                    d = sdHexPrism(p, float2(shape.dimensions.a, shape.dimensions.b));
+                    break;
+                case 10:
+                    d = sdTriPrism(p, float2(shape.dimensions.a, shape.dimensions.b));
+                    break;
+                case 11:
+                    d = sdCapsule(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c),
+                        float3(shape.dimensions.d, shape.dimensions.e, shape.dimensions.f),
+                        shape.dimensions.g);
+                    break;
+                case 12:
+                    d = sdInfiniteCylinder(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c));
+                    break;
+                case 13:
+                    d = sdBox(p, shape.dimensions.a);
+                    break;
+                case 14:
+                    d = sdRoundBox(p, shape.dimensions.a, shape.dimensions.b);
+                    break;
+                case 15:
+                    d = sdRoundedCylinder(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 16:
+                    d = sdCappedCone(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 17:
+                    d = sdBoxFrame(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c), shape.dimensions.d);
+                    break;
+                case 18:
+                    d = sdSolidAngle(p, float2(shape.dimensions.a, shape.dimensions.b), shape.dimensions.c);
+                    break;
+                case 19:
+                    d = sdCutSphere(p, shape.dimensions.a, shape.dimensions.b);
+                    break;
+                case 20:
+                    d = sdCutHollowSphere(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 21:
+                    d = sdDeathStar(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 22:
+                    d = sdRoundCone(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;
+                case 23:
+                    d = sdEllipsoid(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c));
+                    break;
+                case 24:
+                    d = sdRhombus(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c, shape.dimensions.d);
+                    break;
+                case 25:
+                    d = sdOctahedron(p, shape.dimensions.a);
+                    break;
+                case 26:
+                    d = sdPyramid(p, shape.dimensions.a);
+                    break;
+                case 27:
+                    d = udTriangle(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c),
+                        float3(shape.dimensions.d, shape.dimensions.e, shape.dimensions.f),
+                        float3(shape.dimensions.g, shape.dimensions.h, shape.dimensions.i));
+                    break;
+                case 28:
+                    d = udQuad(p, float3(shape.dimensions.a, shape.dimensions.b, shape.dimensions.c),
+                        float3(shape.dimensions.d, shape.dimensions.e, shape.dimensions.f),
+                        float3(shape.dimensions.g, shape.dimensions.h, shape.dimensions.i),
+                        float3(shape.dimensions.j, shape.dimensions.k, shape.dimensions.l));
+                    break;
+                case 29:
+                    d = sdFractal(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    break;               
                 }
                 return d;
             }

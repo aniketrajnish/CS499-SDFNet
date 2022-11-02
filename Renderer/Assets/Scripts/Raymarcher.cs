@@ -104,6 +104,7 @@ public class Raymarcher : SceneViewFilter
                     col = color,
                     blendFactor = s.blendFactor * 100,
                     shapeIndex = (int)s.shape,
+                    opIndex = (int)s.operation,
                     dimensions = renderers[i].GetDimensionVectors((int)s.shape)
                 };
                 properties[i] = p;
@@ -112,7 +113,7 @@ public class Raymarcher : SceneViewFilter
                     _raymarchMaterial.SetInt("_Rank", i);
             }
 
-            shapeBuffer = new ComputeBuffer(renderers.Count, 56);
+            shapeBuffer = new ComputeBuffer(renderers.Count, 96);
             shapeBuffer.SetData(properties);
             
             _raymarchMaterial.SetInt("_Count", renderers.Count);
@@ -160,5 +161,38 @@ public struct Properties
     public Vector3 col;
     public float blendFactor;
     public int shapeIndex;
-    public Vector3 dimensions;
+    public int opIndex;
+    public vector12 dimensions;
+}
+
+public struct vector12
+{
+    float a;
+    float b;
+    float c;
+    float d;
+    float e;
+    float f;
+    float g;
+    float h;
+    float i;
+    float j;
+    float k;
+    float l;
+
+    public vector12(float _a, float _b, float _c, float _d, float _e, float _f, float _g, float _h, float _i, float _j, float _k, float _l)
+    {
+        this.a = _a;
+        this.b = _b;
+        this.c = _c;
+        this.d = _d;
+        this.e = _e;
+        this.f = _f;
+        this.g = _g;
+        this.h = _h;
+        this.i = _i;
+        this.j = _j;
+        this.k = _k;
+        this.l = _l;
+    }
 }
