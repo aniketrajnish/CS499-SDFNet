@@ -45,6 +45,7 @@ Shader "Makra/ImageEffectRaymarcher"
                 float3 col;
                 float blendFactor;
                 int shapeIndex;
+                int opIndex;
                 vector12 dimensions;
             };
 
