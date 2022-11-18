@@ -16,7 +16,7 @@ We're deeply referencing the code accompanying the paper: [CSGNet: Neural Shape 
 
 Follow this [blog](https://aniketrajnish.github.io/docs/sdfnet) for updates!
 
-The final poster for the work done in the first half of the project can be found phere](https://makra.wtf/assets/pdf/SDFNet_Poster.pdf).
+The final poster for the work done in the first half of the project can be found [here](https://makra.wtf/assets/pdf/SDFNet_Poster.pdf).
  
 -----------------------------------
 
