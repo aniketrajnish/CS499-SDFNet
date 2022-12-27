@@ -29,4 +29,4 @@ The final poster for the work done in the first half of the project:
 
 ### Contact
 
-To ask questions, please email any one of us: [Aniket](mailto:aniket.r@iitgn.ac.in), [Dhyey](mailto:dhyey.thummar@iitgn.ac.in), [Progyan](mailto:progyan.das@iitgn.ac.in) and [Shruhrid](mailto:shruhrid.banthia@iitgn.ac.in).
+To ask questions, please email any one of us: [Aniket](mailto:aniket.r@iitgn.ac.in), [Progyan](mailto:progyan.das@iitgn.ac.in) and [Shruhrid](mailto:shruhrid.banthia@iitgn.ac.in).
