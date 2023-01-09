@@ -14,7 +14,7 @@ We're deeply referencing the code accompanying the paper: [CSGNet: Neural Shape 
 
 
 
-Follow this [blog](https://aniketrajnish.github.io/docs/sdfnet) for updates!
+Follow this [blog](https://makra.wtf/docs/sdfnet) for updates!
 
 * The report for the work done on this project in Sem 1 [AY 2022-23] can be found [here](https://makra.wtf/assets/pdf/Aniket_Progyan_FasterThanNERFs.pdf). 
 * All other deliverables can be found [here](https://makra.wtf/docs/2022/cs499-pastebin/).
