@@ -52,6 +52,7 @@ float sdSphere(float3 p, float r) {
 
 //torus
 float sdTorus(float3 p, float2 s) {
+	p = float3(p.x, p.z, -p.y);
 	float2 w = float2(length(p.xz) - s.x, p.y);
 	return length(w) - s.y;
 }
@@ -237,6 +238,7 @@ float sdEllipsoid(float3 p, float3 r)
 //rhombus
 float sdRhombus(float3 p, float la, float lb, float h, float ra)
 {
+	p = float3(p.x, p.z, -p.y);
 	p = abs(p);
 	float2 b = float2(la, lb);
 	float f = clamp((ndot(b, b - 2.0 * p.xz)) / dot(b, b), -1.0, 1.0);
