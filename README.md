@@ -14,11 +14,19 @@ We're deeply referencing the code accompanying the paper: [CSGNet: Neural Shape 
 
 
 
-Follow this [blog](https://aniketrajnish.github.io/docs/sdfnet) for updates!
+Follow this [blog](https://makra.wtf/docs/2022/sdfnet) for updates!
+
+* The report for the work done on this project in Sem 1 [AY 2022-23] can be found [here](https://makra.wtf/assets/pdf/Aniket_Progyan_FasterThanNERFs.pdf). 
+* All other deliverables can be found [here](https://makra.wtf/docs/2022/cs499-pastebin/).
+
+The final poster for the work done in the first half of the project:
+
+![SDFNET_POSTER](https://user-images.githubusercontent.com/58925008/202684033-8b450c0f-81e2-4368-b522-a9da7b6e33ca.png)
+
  
 -----------------------------------
 
 
 ### Contact
 
-To ask questions, please email any one of us: [Aniket](mailto:aniket.r@iitgn.ac.in), [Dhyey](mailto:dhyey.thummar@iitgn.ac.in), [Progyan](mailto:progyan.das@iitgn.ac.in) and [Shruhrid](mailto:shruhrid.banthia@iitgn.ac.in).
+To ask questions, please email any one of us: [Aniket](mailto:aniket.r@iitgn.ac.in), [Progyan](mailto:progyan.das@iitgn.ac.in) and [Shruhrid](mailto:shruhrid.banthia@iitgn.ac.in).
