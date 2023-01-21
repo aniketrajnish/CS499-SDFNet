@@ -183,7 +183,7 @@ public class RaymarchRenderer : MonoBehaviour
     }
     public vector12 GetDimensionVectors(RaymarchRenderer.Shape shape)
     {
-        vector12 dim = new vector12(0,0,0,0,0,0,0,0,0,0,0,0);
+        vector12 dim = new vector12();
 
         switch(shape)
         {

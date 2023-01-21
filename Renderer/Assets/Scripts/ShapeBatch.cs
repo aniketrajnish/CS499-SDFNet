@@ -10,6 +10,7 @@ public class ShapeBatch : MonoBehaviour
     [SerializeField] string save_path;
     public RaymarchRenderer.Shape[] shapes;
     public RaymarchRenderer.Operation[] operations;
+    Camera _cam = Camera.main;
     private void Start()
     {
         StartCoroutine(RenderShapes());
@@ -32,7 +33,7 @@ public class ShapeBatch : MonoBehaviour
             for (int j = 0; j < shape_count; j++)
             {
                 RaymarchRenderer.Shape shape = shapes[Random.Range(0, shapes.Length)];
-                RaymarchRenderer.Operation operation = operations[Random.Range(0, operations.Length)];
+                RaymarchRenderer.Operation operation = operations[0];
 
                 GameObject go = new GameObject();
                 go.AddComponent<RaymarchRenderer>();
@@ -42,7 +43,7 @@ public class ShapeBatch : MonoBehaviour
                 go.GetComponent<RaymarchRenderer>().SetDimensionArray(shape, dimensions);
                 go.GetComponent<RaymarchRenderer>().color = Random.ColorHSV(0, 1);
 
-                out_name += "_" + shape + "_" + operation + "_";
+                /*out_name += "_" + shape + "_" + operation + "_";
                 out_name += "_" + dimensions.a;
                 out_name += "_" + dimensions.b;
                 out_name += "_" + dimensions.c;
@@ -54,7 +55,7 @@ public class ShapeBatch : MonoBehaviour
                 out_name += "_" + dimensions.i;
                 out_name += "_" + dimensions.j;
                 out_name += "_" + dimensions.k;
-                out_name += "_" + dimensions.l;
+                out_name += "_" + dimensions.l;*/
              
 
                 RenderToTexture(go, rt);
@@ -70,7 +71,7 @@ public class ShapeBatch : MonoBehaviour
     }
     vector12 GetRandomDimensions(RaymarchRenderer.Shape shape)
     {
-        vector12 rand_dimensions = new vector12(0,0,0,0,0,0,0,0,0,0,0,0);
+        vector12 rand_dimensions = new vector12();        
 
         switch (shape)
         {
@@ -267,36 +268,27 @@ public class ShapeBatch : MonoBehaviour
     }
     private RenderTexture RenderToTexture(GameObject go, RenderTexture rt)
     {
-        Camera cam = Camera.main;
-        // Store the original target texture
-        RenderTexture previousTarget = cam.targetTexture;
-        // Set the new RenderTexture as the target texture
-        cam.targetTexture = rt;
-        cam.Render();
-        // Restore the original target texture
-        cam.targetTexture = previousTarget;
+        RenderTexture previousTarget = _cam.targetTexture;
+        _cam.targetTexture = rt;
+        _cam.Render();        
+        _cam.targetTexture = previousTarget;
+
         return rt;
     }
     private IEnumerator SaveTexturesToFile(RenderTexture rt, string savePath, List<string> fileNames)
     {
         for (int i = 0; i < fileNames.Count; i++)
         {
-            // Create a new Texture2D with the same size as the render texture
             Texture2D texture = new Texture2D(rt.width, rt.height, TextureFormat.RGB24, false);
 
-            // Copy the pixels from the render texture to the Texture2D
             RenderTexture.active = rt;
             texture.ReadPixels(new Rect(0, 0, rt.width, rt.height), 0, 0);
             RenderTexture.active = null;
 
-            // Encode the Texture2D as a PNG
             byte[] bytes = texture.EncodeToPNG();
-
-            // Create a new file and write the PNG bytes to it
             string filePath = System.IO.Path.Combine(savePath, fileNames[i]);
             System.IO.File.WriteAllBytes(filePath, bytes);
 
-            // Destroy the Texture2D to free up memory
             Destroy(texture);
             yield return null;
         }
