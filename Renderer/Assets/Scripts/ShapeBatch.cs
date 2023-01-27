@@ -10,9 +10,10 @@ public class ShapeBatch : MonoBehaviour
     [SerializeField] string save_path;
     public RaymarchRenderer.Shape[] shapes;
     public RaymarchRenderer.Operation[] operations;
-    Camera _cam = Camera.main;
+    Camera _cam;
     private void Start()
     {
+        _cam = Camera.main;
         StartCoroutine(RenderShapes());
     }
 

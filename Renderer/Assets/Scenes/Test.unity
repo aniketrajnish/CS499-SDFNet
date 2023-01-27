@@ -254,9 +254,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48609716fd7c90b4397e229ba0b077a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_shapes: 2
+  max_shapes: 10
   dataset_size: 100000
-  save_path: D:\test_dataset
+  save_path: D:\new_dataset
   shapes: 
   operations: 
 --- !u!4 &1315109483
