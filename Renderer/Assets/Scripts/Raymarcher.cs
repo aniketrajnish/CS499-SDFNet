@@ -105,7 +105,7 @@ public class Raymarcher : SceneViewFilter
                     blendFactor = s.blendFactor * 100,
                     shapeIndex = (int)s.shape,
                     opIndex = (int)s.operation,
-                    dimensions = renderers[i].GetDimensionVectors((int)s.shape)
+                    dimensions = renderers[i].GetDimensionVectors(s.shape)
                 };
                 properties[i] = p;
 
@@ -167,18 +167,18 @@ public struct Properties
 
 public struct vector12
 {
-    float a;
-    float b;
-    float c;
-    float d;
-    float e;
-    float f;
-    float g;
-    float h;
-    float i;
-    float j;
-    float k;
-    float l;
+    public float a;
+    public float b;
+    public float c;
+    public float d;
+    public float e;
+    public float f;
+    public float g;
+    public float h;
+    public float i;
+    public float j;
+    public float k;
+    public float l;
 
     public vector12(float _a, float _b, float _c, float _d, float _e, float _f, float _g, float _h, float _i, float _j, float _k, float _l)
     {
