@@ -9,11 +9,29 @@ public class ShapeBatch : MonoBehaviour
     int batch_size = 1;
     [SerializeField] string save_path;
     public RaymarchRenderer.Shape[] shapes;
+    RaymarchRenderer.Shape[] exclude;
     public RaymarchRenderer.Operation[] operations;
     Camera _cam;
     private void Start()
     {
         _cam = Camera.main;
+
+        exclude = new RaymarchRenderer.Shape[]
+        {
+            RaymarchRenderer.Shape.Fractal,
+            RaymarchRenderer.Shape.Tesseract,
+            RaymarchRenderer.Shape.Rhombus,
+            RaymarchRenderer.Shape.Triangle,
+            RaymarchRenderer.Shape.Quad,
+            RaymarchRenderer.Shape.CappedTorus,
+            RaymarchRenderer.Shape.InfCone,
+            RaymarchRenderer.Shape.Plane,
+            RaymarchRenderer.Shape.SolidAngle,
+            RaymarchRenderer.Shape.CutSphere,
+            RaymarchRenderer.Shape.DeathStar
+        };
+
+        Camera.main.transform.LookAt(this.transform);
         StartCoroutine(RenderShapes());
     }
 
@@ -23,7 +41,8 @@ public class ShapeBatch : MonoBehaviour
         {
             int shape_count = Random.Range(1, max_shapes);
 
-            shapes = (RaymarchRenderer.Shape[])System.Enum.GetValues(typeof(RaymarchRenderer.Shape));
+            shapes = (RaymarchRenderer.Shape[])System.Enum.GetValues(typeof(RaymarchRenderer.Shape));            
+
             operations = (RaymarchRenderer.Operation[])System.Enum.GetValues(typeof(RaymarchRenderer.Operation));
 
             RenderTexture rt = RenderTexture.GetTemporary(256, 256, 24);
@@ -33,7 +52,13 @@ public class ShapeBatch : MonoBehaviour
 
             for (int j = 0; j < shape_count; j++)
             {
-                RaymarchRenderer.Shape shape = shapes[Random.Range(0, shapes.Length)];
+                RaymarchRenderer.Shape shape;
+
+                /*do                
+                    shape = shapes[Random.Range(0, shapes.Length)];
+                while (System.Array.Exists(exclude, element => element == shape));*/
+                shape = shapes[6];
+                //RaymarchRenderer.Operation operation = operations[Random.Range(0, operations.Length)];
                 RaymarchRenderer.Operation operation = operations[0];
 
                 GameObject go = new GameObject();
@@ -44,8 +69,8 @@ public class ShapeBatch : MonoBehaviour
                 go.GetComponent<RaymarchRenderer>().SetDimensionArray(shape, dimensions);
                 go.GetComponent<RaymarchRenderer>().color = Random.ColorHSV(0, 1);
 
-                /*out_name += "_" + shape + "_" + operation + "_";
-                out_name += "_" + dimensions.a;
+                out_name += "_" + shape + "_" + operation + "_";
+                /*out_name += "_" + dimensions.a;
                 out_name += "_" + dimensions.b;
                 out_name += "_" + dimensions.c;
                 out_name += "_" + dimensions.d;
@@ -57,7 +82,7 @@ public class ShapeBatch : MonoBehaviour
                 out_name += "_" + dimensions.j;
                 out_name += "_" + dimensions.k;
                 out_name += "_" + dimensions.l;*/
-             
+
 
                 RenderToTexture(go, rt);
 
@@ -77,8 +102,8 @@ public class ShapeBatch : MonoBehaviour
         switch (shape)
         {
             case RaymarchRenderer.Shape.Cylinder:
-                rand_dimensions.a = Random.Range(.1f, 5f);
-                rand_dimensions.b = Random.Range(.1f, 4.5f);
+                rand_dimensions.a = Random.Range(.1f, 3.5f);
+                rand_dimensions.b = Random.Range(.1f, 3.5f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.CappedCone:
@@ -87,20 +112,26 @@ public class ShapeBatch : MonoBehaviour
                 rand_dimensions.c = Random.Range(.1f, 5f);
                 return rand_dimensions;
 
+            case RaymarchRenderer.Shape.Frustrum:
+                rand_dimensions.a = Random.Range(.1f, 5f);
+                rand_dimensions.b = Random.Range(.1f, 5f);
+                rand_dimensions.c = Random.Range(.1f, 5f);
+                return rand_dimensions;
+
             case RaymarchRenderer.Shape.Shpere:
-                rand_dimensions.a = Random.Range(.1f, 3f);
+                rand_dimensions.a = Random.Range(.1f, 4f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Torus:
-                rand_dimensions.a = Random.Range(.1f, 3f);
-                rand_dimensions.b = Random.Range(.1f, 3f);
+                rand_dimensions.a = Random.Range(.1f, 2.5f);
+                rand_dimensions.b = Random.Range(.1f, 2.5f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.CappedTorus:
-                rand_dimensions.a = Random.Range(.1f, 1f);
-                rand_dimensions.b = Random.Range(.1f, 1f);
-                rand_dimensions.c = Random.Range(.1f, 1f);
-                rand_dimensions.d = Random.Range(.1f, 1f);
+                rand_dimensions.a = Random.Range(.1f, 3f);
+                rand_dimensions.b = Random.Range(.1f, 3f);
+                rand_dimensions.c = Random.Range(.1f, 5f);
+                rand_dimensions.d = Random.Range(.1f, 5f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Link:
@@ -129,21 +160,22 @@ public class ShapeBatch : MonoBehaviour
 
             case RaymarchRenderer.Shape.HexPrism:
                 rand_dimensions.a = Random.Range(.1f, 5f);
-                rand_dimensions.b = Random.Range(.1f, 5f);
+                rand_dimensions.b = Random.Range(.1f, 3f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.TriPrism:
-                rand_dimensions.a = Random.Range(.1f, 1f);
-                rand_dimensions.b = Random.Range(.1f, 1f);
+                rand_dimensions.a = Random.Range(.1f, 5f);
+                rand_dimensions.b = Random.Range(.1f, 3f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Capsule:
-                rand_dimensions.a = Random.Range(.1f, 1f);
-                rand_dimensions.b = Random.Range(.1f, 1f);
-                rand_dimensions.c = Random.Range(.1f, 1f);
-                rand_dimensions.d = Random.Range(.1f, 1f);
-                rand_dimensions.e = Random.Range(.1f, 1f);
-                rand_dimensions.f = Random.Range(.1f, 1f);
+                rand_dimensions.a = 0;
+                rand_dimensions.b = Random.Range(-3f, 3f);
+                rand_dimensions.c = 0;
+                rand_dimensions.d = 0;
+                rand_dimensions.e = Random.Range(-3f, 3f);
+                rand_dimensions.f = 0;
+                rand_dimensions.g = Random.Range(.1f, 3f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.InfiniteCylinder:
@@ -168,10 +200,10 @@ public class ShapeBatch : MonoBehaviour
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.BoxFrame:
-                rand_dimensions.a = Random.Range(.1f, 3f);
-                rand_dimensions.b = Random.Range(.1f, 3f);
-                rand_dimensions.c = Random.Range(.1f, 3f);
-                rand_dimensions.d = Random.Range(.1f, 3f);
+                rand_dimensions.a = Random.Range(.1f, 4f);
+                rand_dimensions.b = Random.Range(.1f, 4f);
+                rand_dimensions.c = Random.Range(.1f, 4f);
+                rand_dimensions.d = Random.Range(.1f, 1f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.SolidAngle:
@@ -198,22 +230,22 @@ public class ShapeBatch : MonoBehaviour
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.RoundCone:
-                rand_dimensions.a = Random.Range(.1f, 5f);
-                rand_dimensions.b = Random.Range(.1f, 5f);
-                rand_dimensions.c = Random.Range(.1f, 3f);
+                rand_dimensions.a = Random.Range(.1f, 2.5f);
+                rand_dimensions.b = Random.Range(.1f, 2.5f);
+                rand_dimensions.c = Random.Range(1.75f, 3f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Ellipsoid:
-                rand_dimensions.a = Random.Range(.1f, 3f);
-                rand_dimensions.b = Random.Range(.1f, 3f);
-                rand_dimensions.c = Random.Range(.1f, 3f);
+                rand_dimensions.a = Random.Range(.1f, 5f);
+                rand_dimensions.b = Random.Range(.1f, 5f);
+                rand_dimensions.c = Random.Range(.1f, 5f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Rhombus:
-                rand_dimensions.a = Random.Range(.1f, 1f);
-                rand_dimensions.b = Random.Range(.1f, 1f);
-                rand_dimensions.c = Random.Range(.1f, 1f);
-                rand_dimensions.d = Random.Range(.1f, 1f);
+                rand_dimensions.a = Random.Range(.1f, 3f);
+                rand_dimensions.b = Random.Range(.1f, 3f);
+                rand_dimensions.c = Random.Range(.1f, 3f);
+                rand_dimensions.d = Random.Range(.1f, 3f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Octahedron:
@@ -221,7 +253,7 @@ public class ShapeBatch : MonoBehaviour
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Pyramid:
-                rand_dimensions.a = Random.Range(.1f, 10f);
+                rand_dimensions.a = Random.Range(.1f, 5f);
                 return rand_dimensions;
 
             case RaymarchRenderer.Shape.Triangle:
@@ -271,7 +303,7 @@ public class ShapeBatch : MonoBehaviour
     {
         RenderTexture previousTarget = _cam.targetTexture;
         _cam.targetTexture = rt;
-        _cam.Render();        
+        _cam.Render();  
         _cam.targetTexture = previousTarget;
 
         return rt;

@@ -59,6 +59,11 @@ public class RaymarchRenderer : MonoBehaviour
                 CylinderDimensions.h = dimensions.a;
                 CylinderDimensions.r = dimensions.b;
                 break;
+            case RaymarchRenderer.Shape.Frustrum:
+                CappedConeDimensions.r1 = dimensions.a;
+                CappedConeDimensions.r2 = dimensions.b;
+                CappedConeDimensions.h = dimensions.c;
+                break;
             case RaymarchRenderer.Shape.CappedCone:
                 CappedConeDimensions.r1 = dimensions.a;
                 CappedConeDimensions.r2 = dimensions.b;
@@ -195,6 +200,10 @@ public class RaymarchRenderer : MonoBehaviour
                 dim = new vector12(CappedConeDimensions.r1, CappedConeDimensions.r2, CappedConeDimensions.h, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 return dim;
 
+            case RaymarchRenderer.Shape.Frustrum:
+                dim = new vector12(CappedConeDimensions.r1, CappedConeDimensions.r2, CappedConeDimensions.h, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                return dim;
+
             case RaymarchRenderer.Shape.Shpere:
                 dim = new vector12(SphereDimensions.radius, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
                 return dim;
@@ -232,7 +241,7 @@ public class RaymarchRenderer : MonoBehaviour
                 return dim;
 
             case RaymarchRenderer.Shape.Capsule:
-                dim = new vector12(TriangularPrismDimensions.h.x, TriangularPrismDimensions.h.y, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+                dim = new vector12(CapsuleDimensions.a.x, CapsuleDimensions.a.y, CapsuleDimensions.a.z, CapsuleDimensions.b.x, CapsuleDimensions.b.y, CapsuleDimensions.b.z, CapsuleDimensions.r,0, 0, 0, 0, 0);
                 return dim;
 
             case RaymarchRenderer.Shape.InfiniteCylinder:

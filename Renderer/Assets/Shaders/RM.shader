@@ -97,7 +97,7 @@ Shader "Makra/ImageEffectRaymarcher"
                     d = sdCylinder(p, shape.dimensions.a, shape.dimensions.b);
                     break;
                 case 1:
-                    d = sdFrustrum(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
+                    d = sdCappedCone(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
                     break;                    
                 case 2:
                     d = sdSphere(p, shape.dimensions.a);
@@ -112,7 +112,7 @@ Shader "Makra/ImageEffectRaymarcher"
                     d = sdLink(p, shape.dimensions.a, shape.dimensions.b, shape.dimensions.c);
                     break;
                 case 6:
-                    d = sdCone(p, shape.dimensions.a, float2(shape.dimensions.b, shape.dimensions.c));
+                    d = sdCone(p, float2(shape.dimensions.a, shape.dimensions.b), shape.dimensions.c);
                     break;
                 case 7:
                     d = sdInfCone(p, float2(shape.dimensions.a, shape.dimensions.b));
